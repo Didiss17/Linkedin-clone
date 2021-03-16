@@ -8,11 +8,11 @@ import BusinessCenterSharpIcon from "@material-ui/icons/BusinessCenterSharp";
 import MessageSharpIcon from "@material-ui/icons/MessageSharp";
 import NotificationsSharpIcon from "@material-ui/icons/NotificationsSharp";
 import { auth } from "./firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from "./Features/userSlice";
+import { useDispatch } from "react-redux";
+import { logout } from "./Features/userSlice";
 
 function Header() {
-  const user = useSelector(selectUser);
+ 
   const dispatch = useDispatch();
   const logoutOfApp=()=>{
     dispatch(logout())
@@ -38,8 +38,8 @@ function Header() {
         <HeaderOption Icon={MessageSharpIcon} title="Messaging" />
         <HeaderOption Icon={NotificationsSharpIcon} title="Notifications" />
         <HeaderOption
-          avatar={true}
-          title = ""
+         avatar={true}
+          title = "Me"
           onClick={logoutOfApp}
         />
       </div>

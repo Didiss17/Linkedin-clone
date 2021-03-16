@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import "./Feed.css";
-import CreateIcon from "@material-ui/icons/Create";
-import ImageIcon from "@material-ui/icons/Image";
-import InputOption from "./InputOption";
-import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
-import EventNoteIcon from "@material-ui/icons/EventNote";
 import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
-import Post from "./Post";
-import { db } from "./firebase";
+import CreateIcon from "@material-ui/icons/Create";
+import EventNoteIcon from "@material-ui/icons/EventNote";
+import ImageIcon from "@material-ui/icons/Image";
+import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
 import firebase from "firebase";
+import React, { useEffect, useState } from "react";
+import FlipMove from "react-flip-move";
 import { useSelector } from "react-redux";
 import { selectUser } from "./Features/userSlice";
-import FlipMove from "react-flip-move";
+import "./Feed.css";
+import { db } from "./firebase";
+import InputOption from "./InputOption";
+import Post from "./Post";
 
 function Feed() {
   const user = useSelector(selectUser);
@@ -38,7 +38,7 @@ function Feed() {
         name: user.displayName,
         description: user.email,
         message: input,
-        photoUrl: user.photoUrl || "",
+        photoUrl: user.photoUrl ||"",
 
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
@@ -57,9 +57,9 @@ function Feed() {
           <form>
             <input
               value={input}
-              onChange={(e) => {
-                setInput(e.target.value);
-              }}
+              onChange={(e) => 
+                setInput(e.target.value)
+              }
               type="text"
             />
             <button onClick={sendPost} type="submit">

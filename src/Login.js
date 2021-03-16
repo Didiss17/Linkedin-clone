@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "./firebase";
-import login from "./Features/userSlice"
+import myLogin from "./Features/userSlice"
 import "./Login.css";
 
 function Login() {
@@ -11,18 +11,20 @@ function Login() {
   const [profilePic, setProfilePic] = useState("");
   const dispatch = useDispatch();
 
-  const loginToApp = (e) => {
+  const loginToApp = async(e) => {
+    console.log("testt",email,password)
     e.preventDefault();
     auth.signInWithEmailAndPassword(email,password)
     .then(userAuth => {
-      dispatch(login({
+      
+      dispatch(myLogin({
         email:userAuth.user.email,
         uid: userAuth.user.uid,
         displayName:userAuth.user.displayName,
         profileUrl:userAuth.user.photoUrl,
       }))
     })
-    .catch((error)=>alert(error));
+  // .catch((error)=>{ console.log("helo",error);alert(error)});
   };
 
   const register = () => {
@@ -32,14 +34,13 @@ function Login() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userAuth) => {
-        userAuth.user
-          .updateProfile({
+        userAuth.user.updateProfile({
             displayName: name,
             photoUrl: profilePic,
           })
           .then(() => {
             dispatch(
-              login({
+              myLogin({
                 email: userAuth.user.email,
                 uid: userAuth.user.uid,
                 displayName: name,
@@ -48,7 +49,7 @@ function Login() {
             );
           });
       })
-      .catch((error) => alert(error));
+      .catch((error) => { console.log("hela",error);alert(error)});
   };
 
   return (
@@ -61,7 +62,7 @@ function Login() {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Full name(required if registration)"
+          placeholder="Full name(required if registration)" 
           type="text"
         />
         <input
